@@ -1,5 +1,8 @@
 package Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Model.User;
 import Model.UsuariosFuncoes;
 
@@ -25,5 +28,10 @@ public class DadosClientes{
 		}else {
 			return 0;
 		}
+	}
+	
+	public static User  recebeDadosLista() {
+		UsuariosFuncoes<User> pegaDadosUsuario = new UsuariosFuncoes<User>();
+		return pegaDadosUsuario.mostrarUsuarios();
 	}
 }

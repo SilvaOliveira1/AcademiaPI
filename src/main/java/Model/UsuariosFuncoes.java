@@ -12,7 +12,7 @@ import java.util.List;
 import Core.ConnectionSingleton;
 
 public class UsuariosFuncoes<usuarioDados extends User>  {
-	
+	private List<User> usuarios = new ArrayList<>();
 	public String insertUsuarioBd(usuarioDados newUsuario) {
 		try {
 			String nome, senha, email;
@@ -65,8 +65,22 @@ public class UsuariosFuncoes<usuarioDados extends User>  {
 			}
 		break;
 		case 2:
+			try {
+			Connection conn = ConnectionSingleton.getConexao();
+			PreparedStatement buscaTodosUsuario;
+			String buscaGeral = "SELECT codigo, nome, email, senha FROM atv_cliente";
+			buscaTodosUsuario =  conn.prepareStatement(buscaGeral);
+			ResultSet rs = buscaTodosUsuario.executeQuery();
+			while(rs.next()) {
+				newUsuario.setNome(rs.getString("nome"));
+				newUsuario.setEmail(rs.getString("email"));
+				newUsuario.setPass(rs.getString("senha"));
+				addUser(newUsuario);			
+			}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
 		break;
-
 		default:
 			return 0;
 		}
@@ -78,17 +92,20 @@ public class UsuariosFuncoes<usuarioDados extends User>  {
 	public void deleteUsuarioBd(usuarioDados newUsuario) {
 		
 	}
-//    private List<User> usuarios = new ArrayList<>();
-//
-//    public void addUser(User newUser) {
-//        this.usuarios.add(newUser);
-//    }
-//
-//    public void mostrarUsuarios() {
-//        for (User user : usuarios) {
-//            System.out.println("Nome: " + user.getNome() + "|Email:" + user.getEmail());
-//        }
-//    }
+	
+    public void addUser(usuarioDados newUser) {
+        this.usuarios.add(newUser);
+    }
+    
+    public User mostrarUsuarios() {
+        for (User user : usuarios) {
+        	user.getNome();
+        	user.getEmail();
+        	user.getPass();
+           return user;
+        }
+		return null;
+    }
 //
 //    public int buscaUsuario(String nome, String senha) {
 //        for (User user : usuarios) {

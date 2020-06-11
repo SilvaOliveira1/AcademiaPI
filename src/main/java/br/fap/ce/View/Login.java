@@ -1,5 +1,8 @@
 package br.fap.ce.View;
 
+import Bridge.GeradorFuncoes;
+import Bridge.GeradorTxt;
+import Bridge.LogErros;
 import Controller.DadosClientes;
 import Model.UsuariosFuncoes;
 import javafx.application.Application;
@@ -164,7 +167,9 @@ public class Login extends Application {
     	if(DadosClientes.preparaDadosBuscaUsuario(email, senha) == 1) {
     		System.out.println("Usuario valido");
     	}else {
-    		System.out.println("Tente novamente");
+    		GeradorFuncoes gerador = new GeradorTxt();
+    		LogErros logErros = new LogErros("Usuario invalido, entre em contato com a equipe de suporte", gerador);
+    		logErros.gerarArquivo();
     	}
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("InformaÃ§Ã£o");
